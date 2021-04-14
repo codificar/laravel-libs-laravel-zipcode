@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,4 +11,4 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('src/resources/assets/js/generic.vue.js', 'public/js');
+mix.js("src/resources/assets/js/zipcode.vue.js", "public/js");

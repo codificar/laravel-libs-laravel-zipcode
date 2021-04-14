@@ -1,14 +1,45 @@
 {
-    "name": "codificar/generic",
-    "description": "A generic library for laravel.",
-    "authors": [{
-        "name": "Codificar",
-        "email": "libs@codificar.com.br"
-    }],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "Codificar\\Generic\\": "src/"
-        }
+  "name": "codificar/zipcode",
+  "description": "A zipcode library for laravel.",
+  "authors": [
+    {
+      "name": "Codificar",
+      "email": "libs@codificar.com.br"
     }
+  ],
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "codificar/laravel-geolocation",
+        "version": "master",
+        "source": {
+          "url": "https://libs:ofImhksJ@git.codificar.com.br/laravel-libs/laravel-geolocation.git",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }
+  ],
+  "require": {
+    "codificar/laravel-geolocation": "dev-master#ef423114",
+    "canducci/cep": "2.0.*",
+    "guzzlehttp/guzzle": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Codificar\\ZipCode\\": "src/",
+      "Codificar\\Geolocation\\": "vendor/laravel-geolocation/src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Codificar\\Geolocation\\": "vendor/laravel-geolocation/src"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "pestphp/pest": "^1.0",
+    "pestphp/pest-plugin-laravel": "^1.0"
+  }
 }

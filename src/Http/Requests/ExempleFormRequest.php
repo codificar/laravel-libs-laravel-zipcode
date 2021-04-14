@@ -1,6 +1,6 @@
 <?php
 
-namespace Codificar\Generic\Http\Requests;
+namespace Codificar\ZipCode\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;

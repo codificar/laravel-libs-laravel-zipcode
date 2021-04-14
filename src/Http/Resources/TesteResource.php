@@ -1,6 +1,6 @@
 <?php
 
-namespace Codificar\Generic\Http\Resources;
+namespace Codificar\ZipCode\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,7 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         schema="TesteResource",
  *         type="object",
  *         description="Retorno Retorno do relatorio de saques do prestador",
- *         title="Generic Details Resource",
+ *         title="ZipCode Details Resource",
  *        allOf={
  *           @OA\Schema(ref="#/components/schemas/TesteResource"),
  *           @OA\Schema(
