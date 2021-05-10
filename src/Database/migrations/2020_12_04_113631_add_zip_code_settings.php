@@ -22,10 +22,10 @@ class AddZipCodeSettings extends Migration
         ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_provider'), array('value' => ZipCodeFactory::Canducci, 'page' => 1, 'category' => $settingCategory));
         ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_key'), array('value' => '', 'page' => 1, 'category' => $settingCategory));
 
-        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy'), array('value' => '0', 'page' => 1, 'category' => $settingCategory));
+        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy'), array('value' => '1', 'page' => 1, 'category' => $settingCategory));
 
-        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy_provider'), array('value' => '', 'page' => 1, 'category' => $settingCategory));
-        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy_key'), array('value' => '', 'page' => 1, 'category' => $settingCategory));
+        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy_provider'), array('value' => ZipCodeFactory::CepAberto, 'page' => 1, 'category' => $settingCategory));
+        ZipCodeSettings::updateOrCreate(array('key' => 'zipcode_redundancy_key'), array('value' => '639f483b151675817ee8e39aea195eb5', 'page' => 1, 'category' => $settingCategory));
     }
 
     /**

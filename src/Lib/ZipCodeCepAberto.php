@@ -6,17 +6,29 @@ use GuzzleHttp\Client as Guzzle;
 
 use Codificar\ZipCode\Lib\InterfaceZipCode;
 use Codificar\ZipCode\Factory\ZipCodeFactory;
+use Codificar\ZipCode\Exceptions\ZipCodeUnauthorizedKeyException;
 
 class ZipCodeCepAberto implements InterfaceZipCode{
+
+    private $isRedundancy;
+    private $authKey;
+    private $providerUrl;
+
+    public function __construct($authKey, $isRedundancy = false)
+    {
+        $this->providerUrl = "http://www.cepaberto.com/api/v3/";
+        $this->isRedundancy = $isRedundancy;
+        $this->authKey = $authKey;
+    }
     
     public function getAddress($zipCode){
        
         try {
-            $token = "Token token=639f483b151675817ee8e39aea195eb5";
-            $requestUrl = "http://www.cepaberto.com/api/v3/";
-    
+            // 639f483b151675817ee8e39aea195eb5
+            $token = "Token token=".$this->authKey;
+
             $client = new Guzzle([
-                'base_uri' => $requestUrl,
+                'base_uri' => $this->providerUrl,
                 'headers' => ['Authorization' => $token],
                 'connect_timeout' => 50,
                 'exceptions' => false,
@@ -25,8 +37,11 @@ class ZipCodeCepAberto implements InterfaceZipCode{
             $param = "cep?cep=".$zipCode;
             $response = $client->request(
                 'GET', $param
-            )->getBody()->getContents(); 
-            return $this->formatAddress(json_decode($response, true));
+            ); 
+
+            if($response->getStatusCode() === 403 || $response->getStatusCode() === 401) throw new ZipCodeUnauthorizedKeyException;
+            
+            return $this->formatAddress(json_decode($response->getBody()->getContents(), true));
         } catch (\Throwable $th) {
             return [       
                 "success" => false
@@ -38,8 +53,9 @@ class ZipCodeCepAberto implements InterfaceZipCode{
        
         return [       
             "success" => true,
+            "redundancy" => $this->isRedundancy,
             "gateway" =>  ZipCodeFactory::CepAberto,           
-            "zipcode" => $zipCode['cep'],
+            "zipcode" => preg_replace('/[^\p{L}\p{N}\s]/u', '', $zipCode['cep']),
             "street" => $zipCode['logradouro'],
             "city" => $zipCode['cidade']['nome'],
             "district" => $zipCode['bairro'],

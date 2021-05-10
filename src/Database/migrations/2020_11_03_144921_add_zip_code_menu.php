@@ -20,7 +20,7 @@ class AddZipCodeMenu extends Migration
             [
 			'name' => 'ZipCode',
 			'parent_id' => 2319,
-			'order' => 917,
+			'order' => 900,
 			'is_menu' => 1,
 			'url' => '/admin/libs/zipcode/settings',
 			'icon' => 'fa fa-address-card '

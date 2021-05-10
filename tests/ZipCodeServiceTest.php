@@ -1,16 +1,24 @@
 <?php
+use Codificar\ZipCode\Factory\ZipCodeFactory;
 use Codificar\ZipCode\Service\ZipCodeService;
-use Codificar\ZipCode\Exceptions\ZipCodeNotFoundException;
-
-test('should be return a address with zipcode', function () {
-    $zipcode = 33030120;
-    $response = ZipCodeService::getAddressWithLatLng($zipcode);
+// ViaCep
+test('should be return a address with Cep Aberto Gateway', function () {
+    $zipCode = '33030120';
+    $provider = ZipCodeFactory::CepAberto;
+    $key = "639f483b151675817ee8e39aea195eb5";
+   
+    $response = ZipCodeService::findZipCode($zipCode, $provider, $key);
    
     expect($response['success'])->toBeTrue();   
-    expect($response['zipcode'])->toBe("33030120");
+    expect($response['zipcode'])->toBe($zipCode);
 });
 
-test('should be throws ZipCodeNotFoundException with pass invalid zipcode', function () {
-    $zipcode = 12345678;
-    ZipCodeService::getAddressWithLatLng($zipcode);
-})->throws(ZipCodeNotFoundException::class);
+test('should be return a success false with Cep Aberto Gateway', function () {
+    $zipCode = '12345678';
+    $provider = ZipCodeFactory::CepAberto;
+    $key = "639f483b151675817ee8e39aea195eb5";
+   
+    $response = ZipCodeService::findZipCode($zipCode, $provider, $key);
+   
+    expect($response['success'])->toBeFalse();   
+});

@@ -12,18 +12,18 @@ class ZipCodeServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
 
         // // Load laravel views (Carregas as views do Laravel, blade)
-        // $this->loadViewsFrom(__DIR__.'/resources/views', 'zipcode');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'zipcode');
 
         // Load Migrations (Carrega todas as migrations)
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         // // Load trans files (Carrega tos arquivos de traducao) 
-        // $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'zipcodeTrans');
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'zipcode');
 
         // // Publish the VueJS files inside public folder of main project (Copia os arquivos do vue minificados dessa biblioteca para pasta public do projeto que instalar essa lib)
-        // $this->publishes([
-        //     __DIR__.'/../public/js' => public_path('vendor/codificar/zipcode'),
-        // ], 'public_vuejs_libs');
+        $this->publishes([
+            __DIR__.'/../public/js' => public_path('vendor/codificar/zipcode'),
+        ], 'public_vuejs_libs');
     }
 
     public function register()

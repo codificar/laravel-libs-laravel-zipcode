@@ -9,23 +9,33 @@ use Codificar\ZipCode\Factory\ZipCodeFactory;
 use Codificar\Geolocation\Http\Controllers\PlacesServiceController;
 
 class ZipCodeCanducci implements InterfaceZipCode{
+    
+    private $isRedundancy;
+    private $authKey;
+
+    public function __construct($authKey, $isRedundancy = false)
+    {
+        $this->isRedundancy = $isRedundancy;
+        $this->authKey = $authKey;
+    }
+
     public function getAddress($zipCode){
         try {
-            
+          
             $cepArray = Canducci::find($zipCode)->toArray()->result();
-
-            if(empty($cepArray['success'])) return ["success" => false]; 
-
+           
+            if(empty($cepArray['cep'])) return ["success" => false]; 
+           
             $fullAddress = $cepArray['logradouro'].", ".$cepArray['bairro']." ".$cepArray['localidade']." - ".$cepArray['uf'];
            
             $response = PlacesServiceController::geocode($fullAddress);
-          
+           
             if($response['success']){
                 $response['data'];
                 $cepArray['latitude'] =  $response['data']['latitude'];
                 $cepArray['longitude'] =  $response['data']['longitude'];
             };
-
+            
             return $this->formatAddress($cepArray);
 
         } catch (\Throwable $th) {
@@ -38,8 +48,9 @@ class ZipCodeCanducci implements InterfaceZipCode{
     private function formatAddress($zipCode){
         return [       
             "success" => true,
+            "redundancy" => $this->isRedundancy,
             "gateway" =>  ZipCodeFactory::Canducci,           
-            "zipcode" => $zipCode['cep'],
+            "zipcode" => preg_replace('/[^\p{L}\p{N}\s]/u', '', $zipCode['cep']),
             "street" => $zipCode['logradouro'],
             "city" => $zipCode['localidade'],
             "district" => $zipCode['bairro'],
