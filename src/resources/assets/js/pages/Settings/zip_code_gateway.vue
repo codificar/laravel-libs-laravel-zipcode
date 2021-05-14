@@ -97,8 +97,8 @@ export default {
     validate(data) {
       let isValid = true;
       if (
-        this.dataModel.zipcode_key.value == null ||
-        this.dataModel.zipcode_key.value.trim() == ""
+        (this.dataModel.zipcode_key.value == null || this.dataModel.zipcode_key.value.trim() == "") && 
+        this.provideRules.required_key
       ) {
         isValid = false;
         this.dataErrors.zipcode_key = this.trans("zipcode.generic_required");
@@ -115,8 +115,8 @@ export default {
 
       if (this.dataModel.zipcode_redundancy.value == 1) {
         if (
-          this.dataModel.zipcode_redundancy_key.value == null ||
-          this.dataModel.zipcode_redundancy_key.value.trim() == ""
+          (this.dataModel.zipcode_redundancy_key.value == null || this.dataModel.zipcode_redundancy_key.value.trim() == "") &&
+          this.providerRedundancyRule.required_key
         ) {
           isValid = false;
           this.dataErrors.zipcode_redundancy_key = this.trans(
