@@ -16,7 +16,7 @@ class ZipCodeCepAberto implements InterfaceZipCode{
 
     public function __construct($authKey, $isRedundancy = false)
     {
-        $this->providerUrl = "http://www.cepaberto.com/api/v3/";
+        $this->providerUrl = "https://www.cepaberto.com/api/v3/";
         $this->isRedundancy = $isRedundancy;
         $this->authKey = $authKey;
     }
