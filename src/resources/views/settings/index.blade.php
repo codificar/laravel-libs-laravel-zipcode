@@ -39,5 +39,5 @@ clearRowClass()
 
 
 <script src="/libs/zipcode/lang.trans/zipcode"> </script> 
-<script src="{{ elixir('vendor/codificar/zipcode/zipcode.vue.js') }}"> </script> 
+<script src="{{ asset('vendor/codificar/zipcode/zipcode.vue.js') }}"> </script> 
 @stop
