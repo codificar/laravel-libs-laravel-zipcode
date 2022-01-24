@@ -7,7 +7,8 @@ use Codificar\ZipCode\Models\ZipCodeSettings;
 use Codificar\ZipCode\Exceptions\ZipCodeNotFoundException;
 
 class ZipCodeService {  
-    public function getAddressWithLatLng($zipCode){
+    
+    public static function getAddressWithLatLng($zipCode){
         $key = ZipCodeSettings::getZipCodeKey();
         $provider = ZipCodeSettings::getZipCodeProvider();    
         $response = self::findZipCode($zipCode, $provider, $key);
