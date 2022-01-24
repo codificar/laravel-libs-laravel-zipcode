@@ -23,12 +23,14 @@ class ZipCodeCanducci implements InterfaceZipCode{
         try {
           
             $cepArray = Canducci::find($zipCode)->toArray()->result();
+
            
             if(empty($cepArray['cep'])) return ["success" => false]; 
            
             $fullAddress = $cepArray['logradouro'].", ".$cepArray['bairro']." ".$cepArray['localidade']." - ".$cepArray['uf'];
-           
-            $response = PlacesServiceController::geocode($fullAddress);
+            
+            $placesController = new PlacesServiceController();
+            $response = $placesController->geocode($fullAddress);
            
             if($response['success']){
                 $response['data'];
@@ -39,6 +41,7 @@ class ZipCodeCanducci implements InterfaceZipCode{
             return $this->formatAddress($cepArray);
 
         } catch (\Throwable $th) {
+            \Log::error($th->getMessage());
             return [       
                 "success" => false
             ];
