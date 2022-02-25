@@ -15,7 +15,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://libs:ofImhksJ@git.codificar.com.br/laravel-libs/laravel-geolocation.git"
+      "url": "https://libs:ofImhksJ@git.codificar.com.br/laravel-libs/laravel-zipcode.git"
     },
     {
       "type": "package",
