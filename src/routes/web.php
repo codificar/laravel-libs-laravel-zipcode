@@ -5,8 +5,3 @@ Route::group(array('namespace' => 'Codificar\ZipCode\Http\Controllers'), functio
         Route::post('/settings', array('as' => 'adminZipCodeSettingStore', 'uses' => 'ZipCodeSettingController@store'));
     });
 });
-// Route::group(array('namespace' => 'Codificar\ZipCode\Http\Controllers'), function () {
-//     Route::group(['prefix' => '/libs/zipcode'], function () {
-//         Route::get('/settings', 'ZipCodeSettingController@create');    
-//     });
-// });
