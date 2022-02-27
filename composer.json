@@ -31,7 +31,7 @@
     }
   ],
   "require": {
-    "codificar/geolocation": "dev-master#9273685d",
+    "codificar/geolocation": "*",
     "canducci/cep": "2.0.*",
     "guzzlehttp/guzzle": "^7.1"
   },
