@@ -18,7 +18,7 @@ Add in composer.json:
 
 ```php
 require:{
-        "codificar/zipcode": "0.1.0",
+        "codificar/zipcode": "0.1.2",
 }
 ```
 
