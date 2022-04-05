@@ -1,3 +1,5 @@
 {
-    "/public/js/zipcode.vue.js": "/public/js/zipcode.vue.js"
+    "/public/js/zipcode.vue.js": "/public/js/zipcode.vue.js",
+    "/public/vendor/codificar/zipcode/js/zipcode.vue.js": "/public/vendor/codificar/zipcode/js/zipcode.vue.js",
+    "/public/vendor/codificar/zipcode/js/zipcode.vue.js.LICENSE.txt": "/public/vendor/codificar/zipcode/js/zipcode.vue.js.LICENSE.txt"
 }
