@@ -43,6 +43,7 @@ class ZipCodeCepAberto implements InterfaceZipCode{
             
             return $this->formatAddress(json_decode($response->getBody()->getContents(), true));
         } catch (\Throwable $th) {
+            \Log::error($th->getMessage().$th->getTraceAsString());
             return [       
                 "success" => false
             ];

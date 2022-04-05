@@ -41,7 +41,7 @@ class ZipCodeCanducci implements InterfaceZipCode{
             return $this->formatAddress($cepArray);
 
         } catch (\Throwable $th) {
-            \Log::error($th->getMessage());
+            \Log::error($th->getMessage().$th->getTraceAsString());
             return [       
                 "success" => false
             ];

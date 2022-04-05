@@ -15,7 +15,8 @@ class ZipCodeSettings extends Settings {
 	 * @return Number
 	*/
 	public static function getZipCodeCategory (){
-		return Config::get(self::ZipCodeCategory);		
+		$settings = Config::get(self::ZipCodeCategory);
+		return $settings ? $settings  : 13;		
 	}
 
 	/**

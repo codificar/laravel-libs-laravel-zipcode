@@ -27,7 +27,8 @@ class ZipCodeController extends Controller {
 			// Busca as informações do zipcode informado
 			$zipCodeData = ZipCodeService::getAddressWithLatLng($request->zipcode);
 
-		} catch(Exception $ex){
+		} 
+		catch(Exception $ex){
 			return new ZipCodeInfoResource([
 				'cepArray'	=> $zipCodeData,
 				'success'	=> false

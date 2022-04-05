@@ -12,13 +12,15 @@ class ZipCodeService {
         $key = ZipCodeSettings::getZipCodeKey();
         $provider = ZipCodeSettings::getZipCodeProvider();    
         $response = self::findZipCode($zipCode, $provider, $key);
-        if($response['success']) return $response;
+        
+        if($response['success'] == true) return $response;
        
         if(ZipCodeSettings::zipCodeHasRedundancy() == 1){     
             $redundancyKey = ZipCodeSettings::getZipCodeRedundancyKey();
             $redundancyProvider = ZipCodeSettings::getZipCodeRedundancyProvider();
             $response = self::findZipCode($zipCode, $redundancyProvider, $redundancyKey, true);
-            if($response['success']) return $response;
+            
+            if($response['success'] == true) return $response;
         }
        
         throw new ZipCodeNotFoundException;
