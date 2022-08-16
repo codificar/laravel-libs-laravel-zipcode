@@ -8,8 +8,8 @@ use Codificar\ZipCode\Lib\InterfaceZipCode;
 use Codificar\ZipCode\Factory\ZipCodeFactory;
 use Codificar\ZipCode\Exceptions\ZipCodeUnauthorizedKeyException;
 
-class ZipCodeCepAberto implements InterfaceZipCode{
-
+class ZipCodeCepAberto implements InterfaceZipCode
+{
     private $isRedundancy;
     private $authKey;
     private $providerUrl;
@@ -20,11 +20,11 @@ class ZipCodeCepAberto implements InterfaceZipCode{
         $this->isRedundancy = $isRedundancy;
         $this->authKey = $authKey;
     }
-    
-    public function getAddress($zipCode){
-       
+
+    public function getAddress($zipCode)
+    {
+        $zipContent = null;
         try {
-            // 639f483b151675817ee8e39aea195eb5
             $token = "Token token=".$this->authKey;
 
             $client = new Guzzle([
@@ -36,34 +36,37 @@ class ZipCodeCepAberto implements InterfaceZipCode{
 
             $param = "cep?cep=".$zipCode;
             $response = $client->request(
-                'GET', $param
-            ); 
+                'GET',
+                $param
+            );
 
-            if($response->getStatusCode() === 403 || $response->getStatusCode() === 401) throw new ZipCodeUnauthorizedKeyException;
-            
-            return $this->formatAddress(json_decode($response->getBody()->getContents(), true));
+            if ($response->getStatusCode() === 403 || $response->getStatusCode() === 401) {
+                throw new ZipCodeUnauthorizedKeyException();
+            }
+            $zipContent = json_decode($response->getBody()->getContents(), true);
+            return $this->formatAddress($zipContent);
         } catch (\Throwable $th) {
-            \Log::error($th->getMessage().$th->getTraceAsString());
-            return [       
+            \Log::error($zipContent.$th->getMessage().$th->getTraceAsString());
+            return [
                 "success" => false
             ];
-        }	
+        }
     }
 
-    private function formatAddress($zipCode){
-       
-        return [       
+    private function formatAddress($zipCode)
+    {
+        return [
             "success" => true,
             "redundancy" => $this->isRedundancy,
-            "gateway" =>  ZipCodeFactory::CepAberto,           
+            "gateway" =>  ZipCodeFactory::CepAberto,
             "zipcode" => preg_replace('/[^\p{L}\p{N}\s]/u', '', $zipCode['cep']),
             "street" => $zipCode['logradouro'],
             "city" => $zipCode['cidade']['nome'],
             "district" => $zipCode['bairro'],
-            "state" => $zipCode['estado']['sigla'],               
+            "state" => $zipCode['estado']['sigla'],
             "complement" => isset($zipCode['complemento']) ? $zipCode['complemento'] : null,
             "latitude" => isset($zipCode['latitude']) ? $zipCode['latitude'] : null,
-            "longitude" => isset($zipCode['longitude']) ? $zipCode['longitude'] : null,   
+            "longitude" => isset($zipCode['longitude']) ? $zipCode['longitude'] : null,
         ];
     }
 }
