@@ -53,20 +53,23 @@ class ZipCodeCepAberto implements InterfaceZipCode
         }
     }
 
-    private function formatAddress($zipCode)
-    {
-        return [
-            "success" => true,
-            "redundancy" => $this->isRedundancy,
-            "gateway" =>  ZipCodeFactory::CepAberto,
-            "zipcode" => preg_replace('/[^\p{L}\p{N}\s]/u', '', $zipCode['cep']),
-            "street" => $zipCode['logradouro'],
-            "city" => $zipCode['cidade']['nome'],
-            "district" => $zipCode['bairro'],
-            "state" => $zipCode['estado']['sigla'],
-            "complement" => isset($zipCode['complemento']) ? $zipCode['complemento'] : null,
-            "latitude" => isset($zipCode['latitude']) ? $zipCode['latitude'] : null,
-            "longitude" => isset($zipCode['longitude']) ? $zipCode['longitude'] : null,
-        ];
+    private function formatAddress($zipCode){
+        try {
+            return [       
+                "success" => true,
+                "redundancy" => $this->isRedundancy,
+                "gateway" =>  ZipCodeFactory::CepAberto,           
+                "zipcode" => preg_replace('/[^\p{L}\p{N}\s]/u', '', $zipCode['cep']),
+                "street" => $zipCode['logradouro'],
+                "city" => $zipCode['cidade']['nome'],
+                "district" => $zipCode['bairro'],
+                "state" => $zipCode['estado']['sigla'],               
+                "complement" => isset($zipCode['complemento']) ? $zipCode['complemento'] : null,
+                "latitude" => isset($zipCode['latitude']) ? $zipCode['latitude'] : null,
+                "longitude" => isset($zipCode['longitude']) ? $zipCode['longitude'] : null,   
+            ];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
