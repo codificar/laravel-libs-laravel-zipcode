@@ -24,6 +24,11 @@ class ZipCodeServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__.'/../public/js' => public_path('vendor/codificar/zipcode/js'),
         ], 'public_vuejs_libs');
+
+        // Publish the tests files 
+        $this->publishes([
+            __DIR__ . '/../tests/' => base_path('tests/Unit/libs/zipcode'),
+        ], 'publishes_tests');
     }
 
     public function register()
